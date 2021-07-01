@@ -53,7 +53,7 @@ class PostController extends Controller
                 return response()->json(['success'=>true, 'data'=>$post]);
             }
             else {
-                return response()->json(['success'=>true, ' message'=>'Something is wrong upon saving']);
+                return response()->json(['success'=>false, ' message'=>'Something is wrong upon saving']);
             }
 
         }
@@ -61,5 +61,20 @@ class PostController extends Controller
             return response()->json(['success'=>true, ' message'=>'Post not found!']);
         }
 
+    }
+
+    public function deletePost($id){
+        $post = Post::find($id);
+        if ($post){
+            if ($post->delete()){
+                return response()->json(['success'=>true, 'message'=>'Succesfully deleted']);
+            }
+            else {
+                return response()->json(['success'=>false, 'message'=>'Something is wrong']);
+            }
+        }
+        else {
+            return response()->json(['success'=>false, 'message'=>'ID not found']);
+        }
     }
 }
