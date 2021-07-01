@@ -20,7 +20,7 @@ class Review extends Model
     {
         return $this->belongsTo(Post::class);
     }
-     public function post()
+     public function user()
     {
         return $this->belongsTo(User::class);
     }

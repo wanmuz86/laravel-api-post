@@ -17,9 +17,9 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->text('title');
             $table->text('comment');
-            table->unsignedBigInteger('user_id');
-            table->unsignedBigInteger('post_id');
-            $table->tinyInt('rating');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('post_id');
+            $table->tinyInteger('rating');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('post_id')->references('id')->on('reviews');

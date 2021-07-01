@@ -33,7 +33,7 @@ class PostController extends Controller
     }
 
     public function getPostById($id){
-        $post = Post::find($id);
+        $post = Post::with('reviews')->find($id);
         if ($post){
             return response()->json(['success'=>true, 'data'=>$post]);
         }

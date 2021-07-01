@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,21 @@ Route::put('/posts/{id}',[PostController::class, 'updatePost']);
 
 Route::delete('/posts/{id}',[PostController::class, 'deletePost']);
 
+
+//Create reviews
+Route::post('/posts/{id}/reviews',[ReviewController::class, 'create']);
+
+//Get all reviews
+Route::get('/posts/{id}/reviews',[ReviewController::class, 'index']);
+
+//Get  review by ID
+Route::get('/posts/{id}/reviews/{review_id}',[ReviewController::class, 'show']);
+
+//Update  review 
+Route::put('/posts/{id}/reviews/{review_id}',[ReviewController::class, 'update']);
+
+//Delete  review 
+Route::delete('/posts/{id}/reviews/{review_id}',[ReviewController::class, 'delete']);
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
