@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\PassportAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,12 @@ Route::get('/goodbye/{name}', function ($name) {
 });
 Route::post('/info', function (Request $request) {
     return 'Hello  '.$request['name'].' You are '.$request['age'].' years old';
+});
+
+Route::get('/bonjour', function(Request $request){
+    $firstname = $request->firstname;
+    return 'Hello '.$firstname;
+
 });
 
 
@@ -63,8 +70,14 @@ Route::put('/posts/{id}/reviews/{review_id}',[ReviewController::class, 'update']
 Route::delete('/posts/{id}/reviews/{review_id}',[ReviewController::class, 'delete']);
 
 
+
+
 Route::post('/tags',[TagController::class, 'create']);
 Route::get('/tags',[TagController::class, 'getAllTags']);
+
+Route::post('/register', [PassportAuthController::class,'register']);
+
+Route::post('/login', [PassportAuthController::class,'login']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

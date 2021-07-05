@@ -29,9 +29,21 @@ class PostController extends Controller
         }
     }
 
-    public function getAllPost(){
+    public function getAllPost(Request $request){
+        $catIds = $request->catIds;
+        if ($catIds === null){
         $posts = Post::get();
-        return response()->json(['success'=>true, 'data'=>$posts]);
+
+    } 
+    else {
+// Just retrieve the given tags..
+
+        $posts = Post::whereHas('tags', function ($q) use ($catIds){
+            $q->whereIn('tag_id', str_split($catIds));
+        })->get();
+        
+    }
+    return response()->json(['success'=>true, 'data'=>$posts]);
     }
 
     public function getPostById($id){
