@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,9 @@ Route::put('/posts/{id}/reviews/{review_id}',[ReviewController::class, 'update']
 //Delete  review 
 Route::delete('/posts/{id}/reviews/{review_id}',[ReviewController::class, 'delete']);
 
+
+Route::post('/tags',[TagController::class, 'create']);
+Route::get('/tags',[TagController::class, 'getAllTags']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

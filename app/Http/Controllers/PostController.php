@@ -13,7 +13,9 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->description = $request->description;
         $post->user_id = 1;
+
         if ($post->save()){
+            $post->tags()->attach($request->tags);
             return response()->json([
                 'success' => true,
                 'data' => $post
@@ -33,7 +35,7 @@ class PostController extends Controller
     }
 
     public function getPostById($id){
-        $post = Post::with('reviews')->find($id);
+        $post = Post::with('reviews')->with('tags')->find($id);
         if ($post){
             return response()->json(['success'=>true, 'data'=>$post]);
         }
@@ -48,7 +50,9 @@ class PostController extends Controller
         if ($post){
             // I will fill all the item in post
             // With all the items in request
+            $post->tags()->detach();
             $updated = $post->fill($request->all())->save();
+            $post->tags()->attach($request->tags);
             if ($updated){
                 return response()->json(['success'=>true, 'data'=>$post]);
             }
